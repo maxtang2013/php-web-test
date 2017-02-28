@@ -20,7 +20,7 @@ class TAILTest extends PHPUnit_Framework_TestCase {
 
     protected $url = 'http://www.tailopez.com/';
 
-	public function testHomePage() {
+	public function a_testHomePage() {
         $this->webDriver->get($this->url);
 
         // The members <div> tag exists.
@@ -46,17 +46,61 @@ class TAILTest extends PHPUnit_Framework_TestCase {
 
     }
 
-//    public function testHelpPage()
-//    {
-//        $this->webDriver->get($this->url . 'help.php');
-//        $elem = $this->webDriver->findElement(WebDriverBy::id("footerNav"));
-//
-//        $this->assertNotNull($elem);
-//
-//        $this->assertContains('Help', $this->webDriver->getTitle());
-//    }
-//
-//
+    public function b_testHelpPage()
+    {
+        $this->webDriver->get($this->url . 'help.php');
+
+        // Who is Tai Lopez?
+        // Got this unique selector from chrome dev tools.
+        $elem = $this->webDriver->findElement(WebDriverBy::cssSelector("#leftside > div > div.row > div > div:nth-child(1) > div.panel-heading.panel-collapsed > h4"));
+        $this->assertNotNull($elem);
+        $this->assertEquals("Who is Tai Lopez?", $elem->getText());
+
+        // The footerNav element exists.
+        $elem = $this->webDriver->findElement(WebDriverBy::id("footerNav"));
+        $this->assertNotNull($elem);
+
+        $this->assertContains('Help', $this->webDriver->getTitle());
+    }
+
+
+    /**
+     * This test is here to logout, so that the following tests can carry on.
+     */
+    public function testLogoutFromHelpPage() {
+        $this->webDriver->get($this->url . 'help.php');
+
+        $topMenu = $this->webDriver->findElement(WebDriverBy::cssSelector("#header > div.topPanel > div > div.topMenu"));
+
+        $this->assertNotNull($topMenu);
+
+        try {
+            $logoutBtn = $topMenu->findElement(WebDriverBy::partialLinkText("Logout"));
+        } catch (Exception $e) {
+            return;
+        }
+        $logoutBtn->click();
+    }
+
+    public function testLogin() {
+
+        $this->webDriver->get($this->url . 'member.php');
+
+        $id_input = $this->webDriver->findElement(WebDriverBy::cssSelector( "#loginForm > div.form-text > input" ));
+        $pass_input = $this->webDriver->findElement(WebDriverBy::cssSelector( "#loginForm > div.form-password > input" ));
+        $id_input->sendKeys("yllfever@163.com");
+        $pass_input->sendKeys("4yan7lxi");
+
+        $loginSubmitBtn = $this->webDriver->findElement(WebDriverBy::cssSelector("#btn_login"));
+        $loginSubmitBtn->click();
+
+        $this->webDriver->wait(20, 1000)->until(
+            WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector("a[href*=\"logout\"]"))
+        );
+
+
+    }
+
 //    public function test67StepsPage()
 //    {
 //        $this->webDriver->get($this->url . 'flow.php?lp=FS-7506');

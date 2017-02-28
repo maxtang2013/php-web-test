@@ -1,0 +1,31 @@
+{
+    "event": "suiteStart",
+    "suite": "TAILTest",
+    "tests": 2
+}{
+    "event": "testStart",
+    "suite": "TAILTest",
+    "test": "TAILTest::testLogoutFromHelpPage"
+}{
+    "event": "test",
+    "suite": "TAILTest",
+    "test": "TAILTest::testLogoutFromHelpPage",
+    "status": "pass",
+    "time": 7.5711009502411,
+    "trace": [],
+    "message": "",
+    "output": ""
+}{
+    "event": "testStart",
+    "suite": "TAILTest",
+    "test": "TAILTest::testLogin"
+}{
+    "event": "test",
+    "suite": "TAILTest",
+    "test": "TAILTest::testLogin",
+    "status": "pass",
+    "time": 10.030421972275,
+    "trace": [],
+    "message": "",
+    "output": ""
+}
