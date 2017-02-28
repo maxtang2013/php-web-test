@@ -1,9 +1,68 @@
 {
     "event": "suiteStart",
     "suite": "TAILTest",
-    "tests": 2
+    "tests": 1
 }{
     "event": "testStart",
     "suite": "TAILTest",
-    "test": "TAILTest::testLogoutFromHelpPage"
+    "test": "TAILTest::testLoginAndEditProfile"
+}{
+    "event": "test",
+    "suite": "TAILTest",
+    "test": "TAILTest::testLoginAndEditProfile",
+    "status": "error",
+    "time": 27.187930107117,
+    "trace": [
+        {
+            "file": "\/Users\/maxtang\/Projects\/php_with_frameworks\/php-web-test\/vendor\/facebook\/webdriver\/lib\/WebDriverExceptions.php",
+            "line": 67
+        },
+        {
+            "file": "\/Users\/maxtang\/Projects\/php_with_frameworks\/php-web-test\/vendor\/facebook\/webdriver\/lib\/remote\/HttpCommandExecutor.php",
+            "line": 268,
+            "function": "throwException",
+            "class": "WebDriverException",
+            "type": "::"
+        },
+        {
+            "file": "\/Users\/maxtang\/Projects\/php_with_frameworks\/php-web-test\/vendor\/facebook\/webdriver\/lib\/remote\/RemoteWebDriver.php",
+            "line": 491,
+            "function": "execute",
+            "class": "HttpCommandExecutor",
+            "type": "->"
+        },
+        {
+            "file": "\/Users\/maxtang\/Projects\/php_with_frameworks\/php-web-test\/vendor\/facebook\/webdriver\/lib\/remote\/RemoteWebDriver.php",
+            "line": 134,
+            "function": "execute",
+            "class": "RemoteWebDriver",
+            "type": "->"
+        },
+        {
+            "file": "\/Users\/maxtang\/Projects\/php_with_frameworks\/php-web-test\/vendor\/facebook\/webdriver\/lib\/WebDriverExpectedCondition.php",
+            "line": 81,
+            "function": "findElement",
+            "class": "RemoteWebDriver",
+            "type": "->"
+        },
+        {
+            "file": "\/Users\/maxtang\/Projects\/php_with_frameworks\/php-web-test\/vendor\/facebook\/webdriver\/lib\/WebDriverExpectedCondition.php",
+            "line": 320,
+            "function": "call_user_func"
+        },
+        {
+            "file": "\/Users\/maxtang\/Projects\/php_with_frameworks\/php-web-test\/vendor\/facebook\/webdriver\/lib\/WebDriverWait.php",
+            "line": 52,
+            "function": "call_user_func"
+        },
+        {
+            "file": "\/Users\/maxtang\/Projects\/php_with_frameworks\/php-web-test\/test\/TAILTest.php",
+            "line": 115,
+            "function": "until",
+            "class": "WebDriverWait",
+            "type": "->"
+        }
+    ],
+    "message": "Unable to locate element: #abuot_me_save\nFor documentation on this error, please visit: http:\/\/seleniumhq.org\/exceptions\/no_such_element.html\nBuild info: version: '3.1.0', revision: '86a5d70', time: '2017-02-16 07:57:44 -0800'\nSystem info: host: 'bogon', ip: 'fe80:0:0:0:f65c:89ff:fe98:4e3b%en0', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.11.6', java.version: '1.8.0_91'\nDriver info: org.openqa.selenium.firefox.FirefoxDriver\nCapabilities [{rotatable=false, raisesAccessibilityExceptions=false, appBuildId=20170125094131, version=51.0.1, platform=MAC, proxy={}, command_id=1, specificationLevel=0, acceptSslCerts=false, processId=50104, browserVersion=51.0.1, platformVersion=15.6.0, XULappId={ec8030f7-c20a-464f-9b0e-13a3a9e97384}, browserName=firefox, takesScreenshot=true, takesElementScreenshot=true, platformName=darwin, firefox_profile=UEsDBBQACAgIALSBXEoAAAAAAAAAA...}]\nSession ID: e404c308-8d76-6f49-a758-841907220691\n*** Element info: {Using=id, value=abuot_me_save}",
+    "output": ""
 }

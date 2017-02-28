@@ -67,7 +67,7 @@ class TAILTest extends PHPUnit_Framework_TestCase {
     /**
      * This test is here to logout, so that the following tests can carry on.
      */
-    public function testLogoutFromHelpPage() {
+    public function atestLogoutFromHelpPage() {
         $this->webDriver->get($this->url . 'help.php');
 
         $topMenu = $this->webDriver->findElement(WebDriverBy::cssSelector("#header > div.topPanel > div > div.topMenu"));
@@ -82,10 +82,12 @@ class TAILTest extends PHPUnit_Framework_TestCase {
         $logoutBtn->click();
     }
 
-    public function testLogin() {
+    public function testLoginAndEditProfile() {
 
+        // 1. open login page.
         $this->webDriver->get($this->url . 'member.php');
 
+        // 2. fill the login form
         $id_input = $this->webDriver->findElement(WebDriverBy::cssSelector( "#loginForm > div.form-text > input" ));
         $pass_input = $this->webDriver->findElement(WebDriverBy::cssSelector( "#loginForm > div.form-password > input" ));
         $id_input->sendKeys("yllfever@163.com");
@@ -94,12 +96,51 @@ class TAILTest extends PHPUnit_Framework_TestCase {
         $loginSubmitBtn = $this->webDriver->findElement(WebDriverBy::cssSelector("#btn_login"));
         $loginSubmitBtn->click();
 
+        // 3. wait for the browser to load the next page.
         $this->webDriver->wait(20, 1000)->until(
-            WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector("a[href*=\"logout\"]"))
+            WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::partialLinkText("Edit profile"))
+        );
+        $editProfileLink = $this->webDriver->findElement(WebDriverBy::partialLinkText("Edit profile"));
+
+        // 4. Click the 'EDIT PROFILE' link.
+        $editProfileLink->click();
+
+        // 5. Wait for the next page to be loaded.
+
+        // ?? this may FAIL.
+        $this->webDriver->wait(20, 100)->until(
+            WebDriverExpectedCondition::refreshed(
+                WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::id("abuot_me_save"))
+            )
         );
 
+        // 6. Click the 'edit' button.
+        $editBtn = $this->webDriver->findElement(WebDriverBy::id("abuot_me_save"));
+        $editBtn->click();
 
+        // this may FAIL, too.
+        $this->webDriver->wait()->until(
+            WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::id("aboutme_text"))
+        );
+
+        // 7. Generate a number and use it to update the text area.
+        $aboutAreaTexts = rand(100,200);
+        $textArea = $this->webDriver->findElement(WebDriverBy::id( "aboutme_text" ));
+        $textArea->clear();
+        $textArea->sendKeys($aboutAreaTexts);
+
+        $editBtn->click();
+
+        $this->webDriver->wait()->until(
+            WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::cssSelector("#about_div"))
+        );
+
+        $divElem = $this->webDriver->findElement(WebDriverBy::cssSelector("#about_div"));
+
+        $this->assertEquals($aboutAreaTexts, $divElem->getText());
     }
+
+
 
 //    public function test67StepsPage()
 //    {
